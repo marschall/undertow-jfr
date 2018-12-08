@@ -8,6 +8,9 @@ import jdk.jfr.Event;
 import jdk.jfr.Label;
 import jdk.jfr.StackTrace;
 
+/**
+ * An {@link HttpHandler} that generates <a href="https://openjdk.java.net/jeps/328">Flight Recorder</a> events.
+ */
 public class JfrHandler implements HttpHandler {
 
   private final HttpHandler next;
@@ -21,7 +24,7 @@ public class JfrHandler implements HttpHandler {
     HttpEvent event = new HttpEvent();
     event.setMethod(exchange.getRequestMethod().toString());
     event.setUri(exchange.getRequestURI());
-    event.setUri(exchange.getQueryString());
+    event.setQuery(exchange.getQueryString());
     event.begin();
     exchange.addExchangeCompleteListener((completedExchange, nextListener) -> {
       try {

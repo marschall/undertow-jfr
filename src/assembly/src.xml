@@ -7,14 +7,14 @@
   <includeBaseDirectory>false</includeBaseDirectory>
   <fileSets>
     <fileSet>
-      <outputDirectory>com/github/marschall/untertow/jfr/main</outputDirectory>
+      <outputDirectory>com/github/marschall/undertow/jfr/main</outputDirectory>
       <directory>${project.build.directory}</directory>
       <includes>
         <include>${project.build.finalName}.${project.packaging}</include>
       </includes>
     </fileSet>
     <fileSet>
-      <outputDirectory>com/github/marschall/untertow/jfr/main</outputDirectory>
+      <outputDirectory>com/github/marschall/undertow/jfr/main</outputDirectory>
       <directory>${project.build.outputDirectory}</directory>
       <includes>
         <include>module.xml</include>
