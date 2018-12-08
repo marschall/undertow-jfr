@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.5" name="com.github.marschall.undertow.jfr">
+  <resources>
+    <resource-root path="${project.artifactId}-{project.version}.jar" />
+  </resources>
+
+  <dependencies>
+    <module name="io.undertow.core" />
+  </dependencies>
+</module>
