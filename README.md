@@ -1,7 +1,9 @@
-Undertow JFR [![Build Status](https://travis-ci.org/marschall/undertow.svg?branch=master)](https://travis-ci.org/marschall/undertow)
+Undertow JFR [![Build Status](https://travis-ci.org/marschall/undertow-jfr.svg?branch=master)](https://travis-ci.org/marschall/undertow-jfr)
 ============
 
 An Undertow [HttpHandler](http://undertow.io/javadoc/2.0.x/io/undertow/server/HttpHandler.html) that generates [Flight Recorder](https://openjdk.java.net/jeps/328) events.
+
+This project requires Java 11.
 
 ![Flight Recording of some HTTP requests](https://raw.githubusercontent.com/marschall/undertow-jfr/master/src/main/javadoc/Screenshot%20from%202018-12-08%2023-46-14.png)
 
