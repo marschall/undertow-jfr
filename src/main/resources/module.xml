@@ -6,20 +6,6 @@
 
   <dependencies>
     <module name="io.undertow.core" />
-    <system>
-      <paths>
-
-        <!-- Module jdk.jfr -->
-
-        <path name="jdk/jfr" />
-        <path name="jdk/jfr/internal" />
-        <path name="jdk/jfr/internal/handlers" />
-
-      </paths>
-    </system>
-<!--
-    <jigsaw-module name="jkr.jfr">
-    <module name="jkr.jfr" />
--->
+    <module name="jdk.jfr" />
   </dependencies>
 </module>
