@@ -7,6 +7,8 @@ import jdk.jfr.Description;
 import jdk.jfr.Event;
 import jdk.jfr.Label;
 import jdk.jfr.StackTrace;
+import jdk.jfr.TransitionFrom;
+import jdk.jfr.TransitionTo;
 
 /**
  * An {@link HttpHandler} that generates <a href="https://openjdk.java.net/jeps/328">Flight Recorder</a> events.
@@ -19,7 +21,7 @@ public class JfrHandler implements HttpHandler {
   private final HttpHandler next;
 
   public JfrHandler(HttpHandler next) {
-      this.next = next;
+    this.next = next;
   }
 
   @Override
@@ -31,6 +33,7 @@ public class JfrHandler implements HttpHandler {
     event.begin();
     exchange.addExchangeCompleteListener((completedExchange, nextListener) -> {
       try {
+        event.setCompletedIn(Thread.currentThread());
         event.end();
         event.commit();
       } finally {
@@ -38,6 +41,7 @@ public class JfrHandler implements HttpHandler {
       }
     });
     this.next.handleRequest(exchange);
+    event.setStartedIn(Thread.currentThread());
   }
 
   @Label("HTTP exchange")
@@ -57,6 +61,16 @@ public class JfrHandler implements HttpHandler {
     @Label("Query")
     @Description("The query string")
     private String query;
+
+    @TransitionFrom
+    @Label ("Started In")
+    @Description("The IO thread in which the exchange starts")
+    private Thread startedIn;
+
+    @TransitionTo
+    @Label ("Completed In")
+    @Description("The worker thread in which the exchange finishes")
+    private Thread completedIn;
 
     String getMethod() {
       return this.method;
@@ -81,6 +95,24 @@ public class JfrHandler implements HttpHandler {
     void setQuery(String query) {
       this.query = query;
     }
+
+    Thread getStartedIn() {
+      return startedIn;
+    }
+
+    void setStartedIn(Thread startedIn) {
+      this.startedIn = startedIn;
+    }
+
+    Thread getCompletedIn() {
+      return completedIn;
+    }
+
+    void setCompletedIn(Thread completedIn) {
+      this.completedIn = completedIn;
+    }
+
+
 
   }
 
