@@ -8,10 +8,6 @@
   <name>Undertow JFR</name>
   <description>An Undertow HttpHandler that generates JFR events.</description>
 
-  <prerequisites>
-    <maven>3.0.3</maven>
-  </prerequisites>
-
   <url>https://github.com/marschall/undertow-jfr</url>
 
   <scm>
@@ -233,7 +229,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <junit.jupiter.version>5.4.2</junit.jupiter.version>
-    <undertow.version>2.0.22.Final</undertow.version>
+    <undertow.version>2.0.25.Final</undertow.version>
   </properties>
 
 </project>
