@@ -229,7 +229,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <junit.jupiter.version>5.4.2</junit.jupiter.version>
-    <undertow.version>2.0.25.Final</undertow.version>
+    <undertow.version>2.1.6.Final</undertow.version>
   </properties>
 
 </project>
