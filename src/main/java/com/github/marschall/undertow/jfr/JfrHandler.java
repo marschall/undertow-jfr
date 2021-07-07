@@ -26,22 +26,22 @@ public class JfrHandler implements HttpHandler {
 
   @Override
   public void handleRequest(HttpServerExchange exchange) throws Exception {
-    var httpEvent = new HttpEvent();
-    httpEvent.setMethod(exchange.getRequestMethod().toString());
-    httpEvent.setUri(exchange.getRequestURI());
-    httpEvent.setQuery(exchange.getQueryString());
-    httpEvent.begin();
+    var event = new HttpEvent();
+    event.setMethod(exchange.getRequestMethod().toString());
+    event.setUri(exchange.getRequestURI());
+    event.setQuery(exchange.getQueryString());
+    event.begin();
     exchange.addExchangeCompleteListener((completedExchange, nextListener) -> {
       try {
-        httpEvent.setCompletedIn(Thread.currentThread());
-        httpEvent.end();
-        httpEvent.commit();
+        event.setCompletedIn(Thread.currentThread());
+        event.end();
+        event.commit();
       } finally {
         nextListener.proceed();
       }
     });
     this.next.handleRequest(exchange);
-    httpEvent.setStartedIn(Thread.currentThread());
+    event.setStartedIn(Thread.currentThread());
   }
 
   @Label("HTTP exchange")
