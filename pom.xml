@@ -244,12 +244,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-<<<<<<< HEAD
-    <java.version>1.8</java.version>
     <undertow.version>2.2.17.Final</undertow.version>
-=======
-    <undertow.version>2.2.8.Final</undertow.version>
->>>>>>> origin/master
   </properties>
 
 </project>
