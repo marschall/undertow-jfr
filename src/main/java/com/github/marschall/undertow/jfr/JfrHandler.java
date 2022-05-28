@@ -7,6 +7,8 @@ import jdk.jfr.Description;
 import jdk.jfr.Event;
 import jdk.jfr.Label;
 import jdk.jfr.StackTrace;
+import jdk.jfr.TransitionFrom;
+import jdk.jfr.TransitionTo;
 
 /**
  * An {@link HttpHandler} that generates <a href="https://openjdk.java.net/jeps/328">Flight Recorder</a> events.
@@ -19,18 +21,19 @@ public final class JfrHandler implements HttpHandler {
   private final HttpHandler next;
 
   public JfrHandler(HttpHandler next) {
-      this.next = next;
+    this.next = next;
   }
 
   @Override
   public void handleRequest(HttpServerExchange exchange) throws Exception {
-    HttpEvent event = new HttpEvent();
+    var event = new HttpEvent();
     event.setMethod(exchange.getRequestMethod().toString());
     event.setUri(exchange.getRequestURI());
     event.setQuery(exchange.getQueryString());
     event.begin();
     exchange.addExchangeCompleteListener((completedExchange, nextListener) -> {
       try {
+        event.setCompletedIn(Thread.currentThread());
         event.end();
         event.commit();
       } finally {
@@ -38,6 +41,7 @@ public final class JfrHandler implements HttpHandler {
       }
     });
     this.next.handleRequest(exchange);
+    event.setStartedIn(Thread.currentThread());
   }
 
   @Label("HTTP exchange")
@@ -57,6 +61,16 @@ public final class JfrHandler implements HttpHandler {
     @Label("Query")
     @Description("The query string")
     private String query;
+
+    @TransitionFrom
+    @Label ("Started In")
+    @Description("The IO thread in which the exchange starts")
+    private Thread startedIn;
+
+    @TransitionTo
+    @Label ("Completed In")
+    @Description("The worker thread in which the exchange finishes")
+    private Thread completedIn;
 
     String getMethod() {
       return this.method;
@@ -80,6 +94,22 @@ public final class JfrHandler implements HttpHandler {
 
     void setQuery(String query) {
       this.query = query;
+    }
+
+    Thread getStartedIn() {
+      return startedIn;
+    }
+
+    void setStartedIn(Thread startedIn) {
+      this.startedIn = startedIn;
+    }
+
+    Thread getCompletedIn() {
+      return completedIn;
+    }
+
+    void setCompletedIn(Thread completedIn) {
+      this.completedIn = completedIn;
     }
 
   }
