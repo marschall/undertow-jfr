@@ -11,7 +11,7 @@ import jdk.jfr.StackTrace;
 /**
  * An {@link HttpHandler} that generates <a href="https://openjdk.java.net/jeps/328">Flight Recorder</a> events.
  */
-public class JfrHandler implements HttpHandler {
+public final class JfrHandler implements HttpHandler {
 
   // http://hirt.se/blog/?p=870
   // https://www.oracle.com/technetwork/oem/soa-mgmt/con10912-javaflightrecorder-2342054.pdf
