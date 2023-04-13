@@ -244,7 +244,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <undertow.version>2.3.2.Final</undertow.version>
+    <undertow.version>2.3.5.Final</undertow.version>
   </properties>
 
 </project>
